@@ -1,0 +1,16 @@
+package controller;
+
+import java.awt.Color;
+
+import view.BaseWindow;
+
+public class TeilnehmerController {
+
+	BaseWindow unserFenster = new BaseWindow("Testfenster", 600, 300, 800, 500, true);
+	
+	public TeilnehmerController() {
+		
+		unserFenster.setSubpanel("Center", "grid", Color.cyan);
+	}
+	
+}

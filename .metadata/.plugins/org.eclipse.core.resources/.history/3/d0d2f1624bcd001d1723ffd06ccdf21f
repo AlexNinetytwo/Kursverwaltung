@@ -1,0 +1,57 @@
+package controller;
+
+import java.awt.Color;
+
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.TableModel;
+
+import dataobjects.Teilnehmer;
+import main.Database;
+import model.ModelTeilnehmer;
+import view.BaseWindow;
+import view.Teilnehmertabelle;
+// Der Controller steuert nur den Programmablauf fuer einen oder mehrere Vorgaenge
+public class TeilnehmerController {
+	
+	// Unser BaseWindow ist der View, der hier noch allgemein gehalten ist
+	// ein spezial spezialisierter View koennte die gesamte Gestaltung der Fensters uebernehmen
+	Database db;
+	BaseWindow unserFenster = new BaseWindow("Testfenster", 600, 300, 800, 500, true);
+	
+	// Das Model ist hier ausschliesslich fuer die Teilnehmerdaten zustaendig
+	// Es holt die gewooten Daten aus der Datenbank und bereitet diese fuer den View auf
+	// Das Model wird aber auch das Schreiben der Daten in die Datenbank uebernehmen
+	
+	ModelTeilnehmer teilnehmer = new ModelTeilnehmer();
+	public TeilnehmerController() {
+		
+		// View vorbereitung
+		
+		unserFenster.setSubpanel("Center", "grid", Color.cyan);
+		
+		// Muessen wir bearbeiten, wenn es unser Model wird
+		TableModel tblModel = new Teilnehmertabelle(teilnehmer.getTeilnehmerList());
+		
+		JTable tabelle = new JTable(tblModel);
+		
+		tabelle.setAutoCreateRowSorter(true);
+		
+		JScrollPane scroll = new JScrollPane(tabelle);
+		
+		unserFenster.setSubpanel("North", "grid", Color.cyan);
+		unserFenster.setElement(new JButton("Button 2"), "North");
+		unserFenster.setSubpanel("West", "grid", Color.DARK_GRAY);
+		unserFenster.setElement(new JButton("Button 3"), "West");
+		unserFenster.setSubpanel("South", "grid", Color.green);
+		unserFenster.setElement(new JButton("Button 4"), "South");
+		unserFenster.setSubpanel("East", "grid", Color.BLACK);
+		unserFenster.setElement(new JButton("Button 5"), "East");
+		unserFenster.setElement(scroll, "Center");
+		unserFenster.updateWindow();
+	}
+	
+	
+	
+}

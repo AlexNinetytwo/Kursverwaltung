@@ -1,0 +1,103 @@
+package view;
+
+import java.util.List;
+
+import javax.swing.table.AbstractTableModel;
+
+import dataobjects.Teilnehmer;
+
+public class Teilnehmertabelle extends AbstractTableModel {
+	private static final int COLUMN_TNID = 0;
+	private static final int COLUMN_VORNAME = 1;
+	private static final int COLUMN_NACHNAME = 2;
+	private static final int COLUMN_AUFGENOMMEN = 3;
+	
+	private String[] headlines = {"TNID","Vorname","Nachname","Aufgenommen"};
+	
+	private List<Teilnehmer> listeTeilnehmer;
+	
+	// Wir bauen einen Konstrukor, der direkt eine Liste uebernimmt
+	//
+	
+	public Teilnehmertabelle(List<Teilnehmer> tnliste) {
+		this.listeTeilnehmer = tnliste;
+	}
+	
+	@Override
+	public int getRowCount() {
+		return listeTeilnehmer.size();
+	}
+
+	@Override
+	public int getColumnCount() {
+		return headlines.length;
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		Teilnehmer tn = listeTeilnehmer.get(rowIndex);
+		// Da wir den Datentpen des Returnwertes nicht kennen,
+		// verwenden wir Object als kleinster gemeinsamer Nenner von
+		// String, Integer usw. ( alles ist ein Objekt)
+		
+		Object returnValue=null;
+		switch(columnIndex) {
+		case COLUMN_TNID:
+			returnValue = tn.getTNID();
+			break;
+		case COLUMN_VORNAME:
+			returnValue = tn.getVorname();
+			break;
+		case COLUMN_NACHNAME:
+			returnValue = tn.getNachname();
+			break;
+		case COLUMN_AUFGENOMMEN:
+			returnValue = tn.getAufgenommen();
+			break;
+		}
+		return returnValue;
+	}
+	public Class<?> getColumnClass(int columnIndex) {
+		
+		// Diese Methode wird der Tabelle angeboten, damit
+		// der Datentypen der einzelnen Spalten bestimmt werden
+		// kann. Hierzu greifen wird auf den ersten Datensatz
+		// (Reihe 0) und pruefen die Klassenzugehoerigkeit 
+		// der Daten in der ersten Reihe
+		// Bei Reihe ß und Spalte 0 waere es Integer, weil
+		// die TNID als Iteger zurueck gegeben wird
+		// Alle Datentypen sind Kinder von Objekt
+		// Entsprechend kann ich aabfragen, um welchen Kind es sich
+		// handelt...String Integer, Boolean usw.
+		if(listeTeilnehmer.isEmpty()) {
+			return Object.class;
+		}
+		return getValueAt(0, columnIndex).getClass();
+	}
+	
+	public void setValueAt(Object value, int rowIndex, int colIndex) {
+		
+		Teilnehmer tmptn = listeTeilnehmer.get(colIndex);
+		switch(colIndex) 
+		{
+		case COLUMN_TNID:
+			tmptn.setTNID((Integer) value);
+			break;
+		case COLUMN_VORNAME:
+			tmptn.setVorname((String) value);
+			break;
+		case COLUMN_NACHNAME:
+			tmptn.setNachname((String) value);
+			break;
+		case COLUMN_AUFGENOMMEN:
+			tmptn.setAufgenommen((String) value);
+			break;
+		}
+	}
+	
+	public boolean isCellEditable(int rowIndex, int colIndex) {
+		
+		if(colIndex > 0) return true;
+		return false;
+	}
+}

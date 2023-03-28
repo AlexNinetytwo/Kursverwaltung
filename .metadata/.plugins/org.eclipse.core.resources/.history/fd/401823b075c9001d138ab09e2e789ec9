@@ -1,0 +1,104 @@
+package firstGui;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+public class Firstwindow extends JFrame{
+	
+	private JPanel contentRahmen;
+	private JTextField TextFeld;
+
+	public void BasisFenster() {
+		
+		setTitle("Unser erstes Fensert");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// Position und Groesse bestimmen
+		// Position auf dem Bildschirm von obern links 100 Pixel
+		// Position von overn nach unten 100 Pixel
+		// Vreite 300 Pixel
+		// Hoehe 400 Pixel
+		setBounds(100,100,300,400);
+		// Einen Inhaltsrahmen erstellen
+		contentRahmen = new JPanel();
+		// Rahmen des Inhalts bestimmen
+		contentRahmen.setBorder(new EmptyBorder(5,5,5,5));
+		setContentPane(contentRahmen);
+		// keinen Manager verwenden
+		contentRahmen.setLayout(null);
+		// Jetzt legen wir ein Textfeld
+		TextFeld = new JTextField();
+		TextFeld.setFont(new Font("Calibri", Font.PLAIN, 12));
+		TextFeld.setBounds(10,45,130,25);
+		contentRahmen.add(TextFeld);
+		JLabel neuerTitel = new JLabel("Neuer Fenstertitel");
+		neuerTitel.setFont(new Font("Calibri", Font.PLAIN, 12));
+		neuerTitel.setBounds(10,10,130,25);
+		contentRahmen.add(neuerTitel);
+		
+		JButton btAendern = new JButton("Ändern");
+		btAendern.setFont(new Font("Calibri", Font.BOLD, 16));
+		btAendern.setBounds(10,100,100,40);
+		btAendern.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				aendereTitel();
+			}
+		});
+		contentRahmen.add(btAendern);
+		JButton btBeenden = new JButton("Beenden");
+		btBeenden.setFont(new Font("Calibri", Font.BOLD, 16));
+		btBeenden.setBounds(130,100,100,40);
+		btBeenden.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				beendeApp();
+			}
+		});
+		contentRahmen.add(btBeenden);
+		
+		String[] sprachen = new String[] {"Java","JavaScript","PHP","Python","C++","C#","Brainfuck"};
+		JComboBox<String> combobox = new JComboBox<String>(sprachen);
+	}
+	
+	private void aendereTitel() {
+		
+		setTitle(TextFeld.getText());
+	}
+	
+	private void beendeApp() {
+		
+		//Fenster schließen und Application beenden
+		dispose();
+		System.exit(0);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

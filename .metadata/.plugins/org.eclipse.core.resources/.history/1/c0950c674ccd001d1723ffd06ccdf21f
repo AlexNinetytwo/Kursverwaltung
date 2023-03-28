@@ -1,0 +1,13 @@
+package main;
+
+
+public class Secondgui {
+	
+	public static void main(String[] args) {
+	{
+		
+		Database datenbank = new Database();
+
+	}
+
+}

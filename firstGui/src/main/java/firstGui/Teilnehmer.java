@@ -1,0 +1,45 @@
+package firstGui;
+
+public class Teilnehmer {
+
+	private String vorname;
+	private String nachname;
+	private int TNID;
+	private String aufgenommen;
+	
+	
+	public String getVorname() {
+		return vorname;
+	}
+	public void setVorname(String vorname) {
+		this.vorname = vorname;
+	}
+	public String getNachname() {
+		return nachname;
+	}
+	public void setNachname(String nachname) {
+		this.nachname = nachname;
+	}
+	public int getTNID() {
+		return TNID;
+	}
+	public void setTNID(int tNID) {
+		TNID = tNID;
+	}
+	public String getAufgenommen() {
+		return aufgenommen;
+	}
+	public void setAufgenommen(String aufgenommen) {
+		this.aufgenommen = aufgenommen;
+	}
+	// Damit wir diesen eigenen Datentypen problemlos in einer ComboBox
+	// verwenden koennen, schreiben wir eine Methode mit dem Namen
+	// toString()
+	@Override
+	public String toString() {
+		
+		String tmpnamen = this.nachname + "," + this.vorname + "," + this.TNID;
+		
+		return tmpnamen;
+	}
+}

@@ -1,0 +1,24 @@
+package controller;
+
+import java.awt.Color;
+
+import javax.swing.table.TableModel;
+
+import view.BaseWindow;
+import view.Teilnehmertabelle;
+
+public class TeilnehmerController {
+
+	BaseWindow unserFenster = new BaseWindow("Testfenster", 600, 300, 800, 500, true);
+	
+	public TeilnehmerController() {
+		
+		// View vorbereitung
+		unserFenster.setSubpanel("Center", "grid", Color.cyan);
+		
+		
+		// Muessen wir bearbeiten, wenn es unser Model wird
+		TableModel tblModel = new Teilnehmertabelle(teilnehmer);
+	}
+	
+}

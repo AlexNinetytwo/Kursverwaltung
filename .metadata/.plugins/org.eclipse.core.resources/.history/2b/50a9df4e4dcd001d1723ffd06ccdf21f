@@ -1,0 +1,19 @@
+package main;
+
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+public class Secondgui {
+	
+	public static void main(String[] args) {
+	
+		try {
+			Database datenbank = new Database();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Verbindung fehlgeschlagen!");
+		}
+
+	}
+
+}

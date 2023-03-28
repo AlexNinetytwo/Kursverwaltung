@@ -1,0 +1,44 @@
+package controller;
+
+import java.awt.Color;
+
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.table.TableModel;
+
+import dataobjects.Teilnehmer;
+import view.BaseWindow;
+import view.Teilnehmertabelle;
+
+public class TeilnehmerController {
+
+	BaseWindow unserFenster = new BaseWindow("Testfenster", 600, 300, 800, 500, true);
+	ModelTeilnehmer teilnehmer = new ModelTeilnehmer();
+	public TeilnehmerController() {
+		
+		// View vorbereitung
+		unserFenster.setSubpanel("Center", "grid", Color.cyan);
+		
+		
+		// Muessen wir bearbeiten, wenn es unser Model wird
+		TableModel tblModel = new Teilnehmertabelle(teilnehmer);
+		
+		JScrollPane scroll = new JScrollPane(tabelle);
+		
+//		unserFenster.setSubpanel("Center", "grid", Color.BLUE);
+//		unserFenster.setElement(new JButton("Button 1"), "Center");
+		unserFenster.setSubpanel("North", "grid", Color.cyan);
+		unserFenster.setElement(new JButton("Button 2"), "North");
+		unserFenster.setSubpanel("West", "grid", Color.DARK_GRAY);
+		unserFenster.setElement(new JButton("Button 3"), "West");
+		unserFenster.setSubpanel("South", "grid", Color.green);
+		unserFenster.setElement(new JButton("Button 4"), "South");
+		unserFenster.setSubpanel("East", "grid", Color.BLACK);
+		unserFenster.setElement(new JButton("Button 5"), "East");
+		unserFenster.setElement(scroll, "Center");
+		unserFenster.updateWindow();
+	}
+	
+	
+	
+}

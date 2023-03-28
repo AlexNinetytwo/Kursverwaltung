@@ -1,0 +1,174 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.GridLayout;
+import java.lang.annotation.Target;
+import java.util.HashMap;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+public class BaseWindow extends JFrame
+{
+	private JFrame fenster;
+	private JPanel panel;
+	HashMap<String, JPanel> subpanel = new HashMap<>();
+	HashMap<String, HashMap<Integer, Component>> elements = new HashMap<>();
+	
+	public BaseWindow(String title) {	// main Fenster
+		
+		fenster = new JFrame(title);
+		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		// Fenstergröße Vollbild
+		fenster.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		// nicht aenderbare Größe
+		fenster.setResizable(false);
+		// Frame innerhalt des Hauptfenster
+		panel = new JPanel();
+		panel.setLayout(null);
+		fenster.add(this.panel);
+		fenster.setVisible(true);
+	}
+	
+	public BaseWindow(String title, int left, int right, int width, int height) {	// main Fenster
+		
+		fenster = new JFrame(title);
+		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		// Fenstergröße Vollbild
+		fenster.setBounds(left, right, width, height);
+		// aenderbare Größe
+		fenster.setResizable(true);
+		// Frame innerhalb des Hauptfenster
+		panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		fenster.add(panel);
+		fenster.setVisible(true);
+		
+	}
+	public BaseWindow(String title, boolean resizeable) {
+		
+		// main Fenster
+		fenster = new JFrame(title);
+		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		// Fenstergröße Vollbild
+		fenster.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		fenster.setResizable(resizeable);
+		// Frame innerhalb des Hauptfenster
+		panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		fenster.add(panel);
+		fenster.setVisible(true);
+	}
+	
+	public BaseWindow(String title, int left, int right, int width, int height, boolean resizeable) {
+		
+		// main Fenster
+		fenster = new JFrame(title);
+		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		// Fenstergröße Vollbild
+		fenster.setBounds(left, right, width, height);
+		// nicht aenderbare Größe
+		fenster.setResizable(resizeable);
+		// Frame innerhalt des Hauptfenster
+		panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		fenster.add(panel);
+		fenster.setVisible(true);
+	}
+	public BaseWindow(String title, boolean resizeable, JPanel panel) {
+		
+		// main Fenster
+		fenster = new JFrame(title);
+		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		// Fenstergröße Vollbild
+		fenster.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		fenster.setResizable(resizeable);
+		// Frame innerhalb des Hauptfenster
+		panel.setLayout(new BorderLayout());
+		fenster.add(panel);
+		
+		this.panel = panel;
+		fenster.add(this.panel);
+		fenster.setVisible(true);
+	}
+	
+	public BaseWindow(String title, int left, int right, int width, int height, boolean resizeable, JPanel panel) {
+		
+		// main Fenster
+		fenster = new JFrame(title);
+		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		// Fenstergröße Vollbild
+		fenster.setBounds(left, right, width, height);
+		// nicht aenderbare Größe
+		fenster.setResizable(resizeable);
+		// Frame innerhalt des Hauptfenster
+		panel.setLayout(new BorderLayout());
+		fenster.add(panel);
+		
+		this.panel = panel;
+		fenster.add(this.panel);
+		fenster.setVisible(true);
+	}
+	public BaseWindow getSelf() {	
+		
+		// Diese Methode gibt das eigene Objekt, mit allen eingestellten Werten
+		// Eigenschaften und Methoden zurueck
+		// Das ist sinnvoll um einem annderen Teil der Applikation beispielsweise
+		// den Zugriff auf das gleiche Objekt zu ermoeglichen
+		// oder auch Kopien zu erstellen
+		return this;
+	}
+	
+	public JFrame getFrame() 
+	{
+		return this.fenster;
+	}
+	
+	public JPanel getPanel() 
+	{
+		// Direkten Zugriff auf das Panel ermoeglichen
+		return this.panel;
+	}
+	public void setSubpanel(String target, String panel, Color color)
+	{
+		subpanel.put(target, new JPanel(new GridLayout(2, 2)));
+		elements.put(target, new HashMap<Integer, Component>());
+		updateBasePanel(target, color);
+	}
+	public void setElement(Component element, String target) 
+	{
+		int id = elements.get(target).size();
+		elements.get(target).put(id, element);
+		updateSubpanel(target);
+	}
+	public void updateWindow() 
+	{
+		SwingUtilities.updateComponentTreeUI(panel);
+		SwingUtilities.updateComponentTreeUI(rootPane);
+	}
+	
+	private void updateBasePanel(String target, Color color) 
+	{
+		// Werden dem ersten Panel (also dem BasisPanel elemente hinzugefuegt
+		// muss das Fenster auch entsprechend aktualisiert werden
+		subpanel.get(target).setBackground(color);
+		panel.add(subpanel.get(target), target);
+	}
+	private void updateSubpanel(String target) 
+	{
+		subpanel.get(target).removeAll();
+		for(int i =0; i < elements.get(target).size(); i++) 
+		{
+			subpanel.get(target).add(elements.get(target).get(i));
+		}
+	}
+}

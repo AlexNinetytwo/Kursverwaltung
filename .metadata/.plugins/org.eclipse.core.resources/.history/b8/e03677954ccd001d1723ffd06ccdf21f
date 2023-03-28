@@ -1,0 +1,17 @@
+package main;
+
+import java.sql.SQLException;
+
+public class Secondgui {
+	
+	public static void main(String[] args) {
+	
+		try {
+			Database datenbank = new Database();
+		} catch (SQLException e) {
+			System.out.println("Verbindung zur DB fehlgschlagen");
+		}
+
+	}
+
+}

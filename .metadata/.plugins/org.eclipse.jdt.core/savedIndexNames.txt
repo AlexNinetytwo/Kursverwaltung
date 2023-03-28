@@ -1,0 +1,21 @@
+INDEX VERSION 1.131+C:\Users\TN-35011\eclipse-workspace\Unterricht\.metadata\.plugins\org.eclipse.jdt.core
+1512002725.index
+2511518926.index
+3553547002.index
+1114308498.index
+3322737257.index
+1603194382.index
+2019102921.index
+1978910930.index
+1865797976.index
+840443984.index
+1133085968.index
+475754897.index
+3415170734.index
+84221181.index
+3166988278.index
+50017483.index
+3224743793.index
+837305934.index
+272998683.index
+3334554203.index
