@@ -35,13 +35,13 @@ public class BaseWindow extends JFrame
 		fenster.setVisible(true);
 	}
 	
-	public BaseWindow(String title, int left, int right, int width, int height) {	// main Fenster
+	public BaseWindow(String title, int x, int y, int width, int height) {	// main Fenster
 		
 		fenster = new JFrame(title);
 		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		// Fenstergröße Vollbild
-		fenster.setBounds(left, right, width, height);
+		fenster.setBounds(x, y, width, height);
 		// aenderbare Größe
 		fenster.setResizable(true);
 		// Frame innerhalb des Hauptfenster
@@ -49,6 +49,23 @@ public class BaseWindow extends JFrame
 		panel.setLayout(new BorderLayout());
 		fenster.add(panel);
 		fenster.setVisible(true);
+		
+	}
+	
+	public BaseWindow(String title, boolean visible, int x, int y, int width, int height) {	// main Fenster
+		
+		fenster = new JFrame(title);
+		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		// Fenstergröße Vollbild
+		fenster.setBounds(x, y, width, height);
+		// aenderbare Größe
+		fenster.setResizable(true);
+		// Frame innerhalb des Hauptfenster
+		panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		fenster.add(panel);
+		fenster.setVisible(visible);
 		
 	}
 	
@@ -68,14 +85,14 @@ public class BaseWindow extends JFrame
 		fenster.setVisible(true);
 	}
 	
-	public BaseWindow(String title, int left, int right, int width, int height, boolean resizeable) {
+	public BaseWindow(String title, int x, int y, int width, int height, boolean resizeable) {
 		
 		// main Fenster
 		fenster = new JFrame(title);
 		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JFrame.setDefaultLookAndFeelDecorated(false);
 		// Fenstergröße Vollbild
-		fenster.setBounds(left, right, width, height);
+		fenster.setBounds(x, y, width, height);
 		// nicht aenderbare Größe
 		fenster.setResizable(resizeable);
 		// Frame innerhalt des Hauptfenster
@@ -103,14 +120,14 @@ public class BaseWindow extends JFrame
 		fenster.setVisible(true);
 	}
 	
-	public BaseWindow(String title, int left, int right, int width, int height, boolean resizeable, JPanel panel) {
+	public BaseWindow(String title, int x, int y, int width, int height, boolean resizeable, JPanel panel) {
 		
 		// main Fenster
 		fenster = new JFrame(title);
 		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		// Fenstergröße Vollbild
-		fenster.setBounds(left, right, width, height);
+		fenster.setBounds(x, y, width, height);
 		// nicht aenderbare Größe
 		fenster.setResizable(resizeable);
 		// Frame innerhalt des Hauptfenster

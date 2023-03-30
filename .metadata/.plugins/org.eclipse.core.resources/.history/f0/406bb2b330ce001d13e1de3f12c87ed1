@@ -1,0 +1,11 @@
+package view;
+
+public class TeilnehmerAnlegen {
+	
+	private BaseWindow popup;
+
+	public TeilnehmerAnlegen() {
+		
+		popup = new BaseWindow("Neuer Teilnehmer", 200, 200, 350, 350);
+	}
+}

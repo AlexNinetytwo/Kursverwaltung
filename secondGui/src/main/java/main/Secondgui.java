@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import controller.TeilnehmerController;
+import view.TeilnehmerAnlegen;
 
 public class Secondgui {
 	
@@ -16,6 +17,7 @@ public class Secondgui {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Verbindung fehlgeschlagen!");
 		}
+
 
 	}
 

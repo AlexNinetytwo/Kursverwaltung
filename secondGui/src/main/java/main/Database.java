@@ -1,13 +1,19 @@
 package main;
 import java.sql.*;
+import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 public class Database {
 
 	private Connection con;
 	
 	private String query="";
-	
+	// stm ist ohne prepared Statement und wird von uns fuer das SELECT
+	// ohne WEHERE Klausel verwendet
 	private Statement stm;
+	// Zur Verwendung von PreparedStatement muss ein anderes Objekt verwendet werden
+	private PreparedStatement prepstm;
 	
 	private ResultSet results;
 	
@@ -42,10 +48,54 @@ public class Database {
 		executeSQL();
 	}
 	
-	public void setSQLUpdate(String sql) throws SQLException {
+	public void setSQLUpdate(String sql, int id, Object[] values) throws SQLException {
 		
 		query = sql;
-		executeUpdate();
+		prepstm = con.prepareStatement(sql);
+		for(int i=0; i < values.length; i++) {
+			
+			switch(   values[i].getClass().getTypeName()  ) {
+			
+			case "java.lang.String":
+				prepstm.setString(i+1, values[i].toString());
+				break;
+			case "java.lang.Integer":
+				prepstm.setInt(i+1,(int) values[i]);
+				break;
+			case "java.util.Date":
+				java.util.Date datum = (Date) values[i];
+				java.sql.Date date = new java.sql.Date(datum.getTime());
+				prepstm.setDate(i+1, date);
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Kein passender Datentyp gefunden für " + (values[i].getClass().getTypeName()) + " gefunden!");
+			}
+		}
+		// Fuer das letzte ? nun noch die ID aus der Where Klausel mitgeben
+		prepstm.setInt(values.length+1, id);
+		prepstm.execute();
+	}
+	
+	public void setSQLUpdate(String sql, Object[] values) throws SQLException {
+		
+		query = sql;
+		prepstm = con.prepareStatement(sql);
+		for(int i=0; i < values.length; i++) {
+			
+			switch(   values[i].getClass().getTypeName()  ) {
+			
+			case "java.lang.String":
+				prepstm.setString(i+1, values[i].toString());
+				break;
+			case "java.lang.Integer":
+				prepstm.setInt(i+1,(int) values[i]);
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Kein passender Datentyp gefunden!");
+			}
+		}
+		// Fuer das letzte ? nun noch die ID aus der Where Klausel mitgeben
+		prepstm.execute();
 	}
 	
 	public ResultSet getSelectResults() {

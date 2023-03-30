@@ -1,0 +1,128 @@
+package main;
+import java.sql.*;
+
+import javax.swing.JOptionPane;
+
+public class Database {
+
+	private Connection con;
+	
+	private String query="";
+	// stm ist ohne prepared Statement und wird von uns fuer das SELECT
+	// ohne WEHERE Klausel verwendet
+	private Statement stm;
+	// Zur Verwendung von PreparedStatement muss ein anderes Objekt verwendet werden
+	private PreparedStatement prepstm;
+	
+	private ResultSet results;
+	
+	public Database() throws SQLException {
+		
+		con = DriverManager.getConnection(
+				"jdbc:mariadb://ns2.firmen-schulungen.info:3306/admin_kursverwaltung002",
+				"admin_alex002",
+				"z5qeB57?6"
+				);
+	}
+	
+	private void executeUpdate() throws SQLException {
+		
+		// Diese Methode ist fuer Datenmanipulationen an der DB zustaendig
+		stm = con.createStatement();
+		// Bei Inserts wollen wir ausserdem die automatisch generierte ID bekommen
+		stm.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+		results = stm.getGeneratedKeys();
+	}
+	
+	private void executeSQL() throws SQLException {
+		
+		// Diese Methode wird fuer SELECT Anweisungen verwendent
+		stm = con.createStatement();
+		results = stm.executeQuery(query);
+	}
+	
+	public void setSelectStatement(String sql) throws SQLException {
+		
+		query = sql;
+		executeSQL();
+	}
+	
+	public void setSQLUpdate(String sql, int id, Object[] values) throws SQLException {
+		
+		query = sql;
+		prepstm = con.prepareStatement(sql);
+		for(int i=0; i < values.length; i++) {
+			
+			switch(   values[i].getClass().getTypeName()  ) {
+			
+			case "java.lang.String":
+				prepstm.setString(i+1, values[i].toString());
+				break;
+			case "java.lang.Integer":
+				prepstm.setInt(i+1,(int) values[i]);
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Kein passender Datentyp gefunden!");
+			}
+		}
+		// Fuer das letzte ? nun noch die ID aus der Where Klausel mitgeben
+		prepstm.setInt(values.length+1, id);
+		prepstm.execute();
+	}
+	
+	public void setSQLUpdate(String sql, Object[] values) throws SQLException {
+		
+		query = sql;
+		prepstm = con.prepareStatement(sql);
+		for(int i=0; i < values.length; i++) {
+			
+			switch(   values[i].getClass().getTypeName()  ) {
+			
+			case "java.lang.String":
+				prepstm.setString(i+1, values[i].toString());
+				break;
+			case "java.lang.Integer":
+				prepstm.setInt(i+1,(int) values[i]);
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Kein passender Datentyp gefunden!");
+			}
+		}
+		// Fuer das letzte ? nun noch die ID aus der Where Klausel mitgeben
+		prepstm.execute();
+	}
+	
+	public ResultSet getSelectResults() {
+		
+		return results;
+	}
+	
+	public int getInsertID() throws SQLException {
+		
+		results.first();
+		return results.getInt(1);
+	}
+	
+	public void close() {
+		
+		// Wir setellen sicher, dass alle drei Beatandteile geschlossen werden
+		// auch wenn einer aus der Gruppe bereits leer/abgebrochen sein sollte
+		// Deshalb verwenden wir drei einzelne Exception-Handling
+		// Auf einer besondere Fehlerbehandlung koennen wir zudem verzichten
+		// Denn eine geschlossene Verbindung ist zu diesem Zeitpunkt kein
+		// Fehler
+		
+		try {
+			results.close();
+		} catch (SQLException e) {}
+		
+		try {
+			stm.close();
+		} catch (SQLException e) {}
+		
+		try {
+			con.close();
+		} catch (SQLException e) {}
+		
+	}
+}

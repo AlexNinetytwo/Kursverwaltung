@@ -1,0 +1,29 @@
+package view;
+
+import java.awt.Color;
+
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class TeilnehmerAnlegen {
+	
+	private BaseWindow popup;
+
+	public TeilnehmerAnlegen() {
+		
+		popup = new BaseWindow("Neuer Teilnehmer", 200, 200, 350, 350);
+	}
+	
+	public void generateWindow() {
+		
+		popup.setSubpanel("Center", "grid", Color.LIGHT_GRAY);
+		JLabel label1 = new JLabel("Vorname");
+		label1.setSize(10, 1);
+		JTextField text1 = new JTextField();
+		text1.setSize(50, 20);
+		
+		popup.setElement(label1,  "Center");
+		popup.setElement(text1, "Center");
+		popup.updateWindow();
+	}
+}

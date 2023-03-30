@@ -1,0 +1,10 @@
+package view;
+
+public class TeilnehmerAnlegen {
+
+	public TeilnehmerAnlegen() {
+		
+		BaseWindow inputWindow = new BaseWindow("Neuer Teilnehmer");
+		
+	}
+}

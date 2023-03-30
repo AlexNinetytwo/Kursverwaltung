@@ -68,7 +68,7 @@ public class Teilnehmertabelle extends AbstractTableModel {
 		// kann. Hierzu greifen wird auf den ersten Datensatz
 		// (Reihe 0) und pruefen die Klassenzugehoerigkeit 
 		// der Daten in der ersten Reihe
-		// Bei Reihe ß und Spalte 0 waere es Integer, weil
+		// Bei Reihe 0 und Spalte 0 waere es Integer, weil
 		// die TNID als Iteger zurueck gegeben wird
 		// Alle Datentypen sind Kinder von Objekt
 		// Entsprechend kann ich aabfragen, um welchen Kind es sich
@@ -96,7 +96,7 @@ public class Teilnehmertabelle extends AbstractTableModel {
 			listeTeilnehmer.get(rowIndex).setAufgenommen((String) value);
 			break;
 		}
-		tnc.update();
+		tnc.update(listeTeilnehmer.get(rowIndex));
 	}
 	
 	public boolean isCellEditable(int rowIndex, int colIndex) {

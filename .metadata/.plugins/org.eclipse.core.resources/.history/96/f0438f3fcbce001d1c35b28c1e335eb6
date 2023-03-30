@@ -1,0 +1,49 @@
+package view;
+
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class TeilnehmerAnlegen {
+	
+	private BaseWindow popup;
+
+	public TeilnehmerAnlegen() {
+		
+		popup = new BaseWindow("Neuer Teilnehmer", 200, 200, 350, 350);
+	}
+	
+	public void generateWindow() {
+		
+		popup.setSubpanel("Center", "grid", Color.LIGHT_GRAY);
+		
+		JLabel label = new JLabel("Vorname");
+		JLabel label2 = new JLabel("Nachname");
+		
+		label.setSize(100, 1);
+		label2.setSize(100, 1);
+		
+		JTextField text = new JTextField("",15);
+		JTextField text2 = new JTextField("",15);
+
+		JPanel line1 = new JPanel(new FlowLayout());
+		JPanel line2 = new JPanel(new FlowLayout());
+		
+		JPanel line1grid = new JPanel(new GridLayout(3,2));
+		
+		line1grid.add(text);
+		line1grid.add(label);
+		
+		line1.add(line1grid);
+		line2.add(label2);
+		line2.add(text2);
+		
+		popup.setElement(line1,  "Center");
+		popup.setElement(line2,  "Center");
+		popup.updateWindow();
+	}
+}

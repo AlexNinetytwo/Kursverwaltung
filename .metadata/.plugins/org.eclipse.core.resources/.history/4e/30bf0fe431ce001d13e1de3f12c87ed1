@@ -1,0 +1,18 @@
+package view;
+
+import java.awt.Color;
+
+public class TeilnehmerAnlegen {
+	
+	private BaseWindow popup;
+
+	public TeilnehmerAnlegen() {
+		
+		popup = new BaseWindow("Neuer Teilnehmer", 200, 200, 350, 350);
+	}
+	
+	public void generateWindow() {
+		
+		popup.setSubpanel("Center", "grid", Color.LIGHT_GRAY);
+	}
+}

@@ -1,0 +1,57 @@
+package view;
+
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+
+public class TeilnehmerAnlegen {
+	
+	private BaseWindow popup;
+
+	public TeilnehmerAnlegen() {
+		
+		popup = new BaseWindow("Neuer Teilnehmer", 200, 200, 350, 350);
+		popup.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+	
+	public void generateWindow() {
+		
+		popup.setSubpanel("Center", "grid", Color.LIGHT_GRAY);
+		
+		JLabel label = new JLabel("Vorname");
+		JLabel label2 = new JLabel("Nachname");
+		
+		JTextField text = new JTextField("",15);
+		JTextField text2 = new JTextField("",15);
+
+		JPanel line1 = new JPanel(new FlowLayout());
+		JPanel line2 = new JPanel(new FlowLayout());
+		
+		// Zu r besseren Positionierung der Elemente innerhalb der Zeilen
+		// Ein Grid zur Hilfe
+		// Je Eingabemöglichkeit eine Zeile des halb 3 rows
+		// Je Zeile ein Feld für Beschriftung und Eingabefeld
+		// also 2 columns
+		JPanel line1grid = new JPanel(new GridLayout(3,2));
+		
+		// Label und Textfelder in der Hilfsgrid einfuegen
+		line1grid.add(label);
+		line1grid.add(text);
+		line1grid.add(label2);
+		line1grid.add(text2);
+		
+		// Hilfsgrid mit allen darin befindlichen Elementen der
+		// Zeile 1 hinzufuegen
+		line1.add(line1grid);
+		
+		// Zeile 1 und Zeile 2 nun an das Fenster uebergeben
+		popup.setElement(line1,  "Center");
+		popup.updateWindow();
+	}
+}
